@@ -98,7 +98,6 @@ def bellman_ford(A, s):
                but does not return anything
         """
         assert np.abs(A[vertex_u.index, vertex_v.index]) > 0, '(u, v) must be a valid edge (non-zero length) in A'
-        # Relaxation: if going from u to v yields a shorter path, update v's dist and prev.
         if vertex_u.dist + matrix_A[vertex_u.index, vertex_v.index] < vertex_v.dist:
             vertex_v.dist = vertex_u.dist + matrix_A[vertex_u.index, vertex_v.index]
             vertex_v.prev = vertex_u
@@ -109,15 +108,12 @@ def bellman_ford(A, s):
     vertices = [Vertex(i) for i in range(n)]
     vertices[s].dist = 0
     
-    # Relax all edges |V| - 1 times
     for i in range(n - 1):
         for u in vertices:
             for v in vertices:
-                # Only relax if there is an edge (non-zero weight)
                 if A[u.index, v.index] != 0:
                     update(u, v, A)
 
-    # Check for negative-weight cycles: if any edge can still be relaxed, a cycle exists.
     for u in vertices:
         for v in vertices:
             if A[u.index, v.index] != 0 and u.dist + A[u.index, v.index] < v.dist:
