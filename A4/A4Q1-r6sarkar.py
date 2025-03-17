@@ -47,6 +47,7 @@ def random_adjacency_matrix(n):
     return A
 
 
+
 def plot_adjacency_matrix(A):
     """Turn an adjacency matrix representation of a graph into a plot of the graph
     
